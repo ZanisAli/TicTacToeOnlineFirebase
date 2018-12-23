@@ -190,4 +190,14 @@ class MainActivity : AppCompatActivity() {
         }
         playGame(cellID,buSelect)
     }
+
+    protected fun buRequestEvent(view: View)
+    {
+        var userDemail=etEmail.text
+    }
+
+    protected fun buAcceptEvent(view: View)
+    {
+        var userDemail=etEmail.text
+    }
 }
