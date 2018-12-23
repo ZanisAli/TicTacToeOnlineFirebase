@@ -10,13 +10,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 //import firebase object
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
 
+    //to work with firebase database, need to define firebase dabatase instance
+    private  var database= FirebaseDatabase.getInstance()
+    //2nd thing is to define reference for the database
+    var myRef= database.getReference()//this one has instance to that database and using it can connect to that instance
 
     //declare firebase analytics var
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
 
+    //my email
+     var myEmail:String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,6 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        //b is instance of bundle
+        var b:Bundle=intent.extras
+        myEmail=b.getString("email")
 
     }
 
@@ -191,13 +202,16 @@ class MainActivity : AppCompatActivity() {
         playGame(cellID,buSelect)
     }
 
-    protected fun buRequestEvent(view: View)
+    protected fun buRequestEvent(view:android.view.View)
     {
-        var userDemail=etEmail.text
+        var userDemail=etEmail.text.toString()
+        //push will create random id, because if use email then alot of people can use that for requesting
+        myRef.child("Users").child(userDemail).child("Request").push().setValue(myEmail)
     }
 
-    protected fun buAcceptEvent(view: View)
+    protected fun buAcceptEvent(view:android.view.View)
     {
-        var userDemail=etEmail.text
+        var userDemail=etEmail.text.toString()
+
     }
 }

@@ -50,7 +50,7 @@ class Login : AppCompatActivity() {
                         var currentUser=mAuth!!.currentUser
                         //save in database
                         if(currentUser!=null) {
-                            myRef.child("Users").child(SplitString(currentUser.email.toString())).setValue(currentUser.uid) //this child "users" which we created in database manually and second .child is adding child to "users" child and setting value to userid
+                            myRef.child("Users").child(SplitString(currentUser.email.toString())).child("Request").setValue(currentUser.uid) //this child "users" which we created in database manually and second .child is adding child to "users" child and setting value to userid
 
                         }
                         LoadMain()
@@ -78,7 +78,7 @@ class Login : AppCompatActivity() {
 
             //passing data b/w activites need intent
             var intent = Intent(this, MainActivity::class.java)// will go to main activity
-            intent.putExtra("Email", currentUser!!.uid) //this uid is  also in authentication tab next to user and each user have unique id
+            intent.putExtra("Uid", currentUser!!.uid) //this uid is  also in authentication tab next to user and each user have unique id
             intent.putExtra("Email", currentUser!!.email)
             //starting activity otherwise it will not show
             startActivity(intent)
